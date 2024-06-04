@@ -84,13 +84,24 @@ class Bank:
 class Account:
     def __init__(self, user: object) -> None:
         self.user = user
-        self.balance = 0
+        self.__balance = 0
         self.daily_withdraw_limit = 3
         self.withdraw_limit_value = 500
         self.statement = []
     
     def __str__(self) -> str:
         return f"{self.user}'s account"
+    
+    @property
+    def balance(self) -> None:
+        return self.__balance
+    
+    @balance.setter
+    def balance(self, new_balance: float) -> None:
+        if isinstance(new_balance, (int, float)):
+            self.__balance = new_balance
+        else:
+            raise ValueError("The balance value must be an int or float.")
     
     @property
     def withdraws_made_today(self):
